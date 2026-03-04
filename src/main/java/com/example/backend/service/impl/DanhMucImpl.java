@@ -66,32 +66,33 @@ public class DanhMucImpl implements DanhMucService {
 
     // ================= TẠO =================
     @Override
-    public DanhMucResponse createDanhMuc(DanhMucRequest request) {
+public DanhMucResponse createDanhMuc(DanhMucRequest request) {
 
-        if (request.getTenDanhMuc() == null || request.getTenDanhMuc().isEmpty()) {
-            throw new IllegalArgumentException("Tên danh mục không được để trống");
-        }
-
-        if (danhMucRepository.existsByTenDanhMuc(request.getTenDanhMuc())) {
-            throw new IllegalArgumentException("Danh mục đã tồn tại");
-        }
-
-        DanhMucEntity entity = DanhMucEntity.builder()
-                .tenDanhMuc(request.getTenDanhMuc())
-                .moTa(request.getMoTa())
-                .trangThai(true)
-                .build();
-
-        DanhMucEntity saved = danhMucRepository.save(entity);
-
-        return DanhMucResponse.builder()
-                .id(saved.getId())
-                .tenDanhMuc(saved.getTenDanhMuc())
-                .moTa(saved.getMoTa())
-                .trangThai(saved.getTrangThai())
-                .ngayTao(saved.getNgayTao())
-                .build();
+    if (request.getTenDanhMuc() == null || request.getTenDanhMuc().isEmpty()) {
+        throw new IllegalArgumentException("Tên danh mục không được để trống");
     }
+
+    if (danhMucRepository.existsByTenDanhMuc(request.getTenDanhMuc())) {
+        throw new IllegalArgumentException("Danh mục đã tồn tại");
+    }
+
+    DanhMucEntity entity = DanhMucEntity.builder()
+            .tenDanhMuc(request.getTenDanhMuc())
+            .moTa(request.getMoTa())
+            .trangThai(true)
+            .ngayTao(java.time.LocalDateTime.now()) // ✅ thêm dòng này
+            .build();
+
+    DanhMucEntity saved = danhMucRepository.save(entity);
+
+    return DanhMucResponse.builder()
+            .id(saved.getId())
+            .tenDanhMuc(saved.getTenDanhMuc())
+            .moTa(saved.getMoTa())
+            .trangThai(saved.getTrangThai())
+            .ngayTao(saved.getNgayTao())
+            .build();
+}
 
     // ================= SỬA =================
     @Override

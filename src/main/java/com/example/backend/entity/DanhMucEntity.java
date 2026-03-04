@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class DanhMucEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,10 +24,21 @@ public class DanhMucEntity {
 
     private String moTa;
 
+    @Builder.Default
     private Boolean trangThai = true;
 
-    private LocalDateTime ngayTao = LocalDateTime.now();
+    @Column(name = "ngay_tao", updatable = false)
+    private LocalDateTime ngayTao;
 
     @OneToMany(mappedBy = "danhMuc", cascade = CascadeType.ALL)
     private List<SanPhamEntity> sanPhams;
+
+    // 🔥 Tự động chạy trước khi insert vào DB
+    @PrePersist
+    public void prePersist() {
+        if (this.trangThai == null) {
+            this.trangThai = true;
+        }
+        this.ngayTao = LocalDateTime.now();
+    }
 }
