@@ -158,4 +158,28 @@ public DanhMucResponse getDanhMucById(Long id) {
             .ngayTao(danhMuc.getNgayTao())
             .build();
 }
+
+@Override
+public DanhMucResponse toggleTrangThai(Long id) {
+
+    if (id == null) {
+        throw new IllegalArgumentException("Không có id");
+    }
+
+    DanhMucEntity danhMuc = danhMucRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy danh mục"));
+
+    // 🔥 Đảo trạng thái
+    danhMuc.setTrangThai(!danhMuc.getTrangThai());
+
+    DanhMucEntity saved = danhMucRepository.save(danhMuc);
+
+    return DanhMucResponse.builder()
+            .id(saved.getId())
+            .tenDanhMuc(saved.getTenDanhMuc())
+            .moTa(saved.getMoTa())
+            .trangThai(saved.getTrangThai())
+            .ngayTao(saved.getNgayTao())
+            .build();
+}
 }

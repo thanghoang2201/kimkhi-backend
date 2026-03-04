@@ -70,4 +70,9 @@ public class DanhMucController {
         danhMucService.deleteDanhMuc(id);
         return ResponseEntity.ok("Xóa danh mục thành công");
     }
+    // ================= TOGGLE TRẠNG THÁI =================
+    @PutMapping("/toggle/{id}")
+public ResponseEntity<DanhMucResponse> toggleTrangThai(@PathVariable Long id) {
+    return ResponseEntity.ok(danhMucService.toggleTrangThai(id));
+}
 }

@@ -24,4 +24,6 @@ public interface DanhMucService {
     void deleteDanhMuc(Long id);
     //Tìm theo id
     DanhMucResponse getDanhMucById(Long id);
+
+    public DanhMucResponse toggleTrangThai(Long id);
 }
