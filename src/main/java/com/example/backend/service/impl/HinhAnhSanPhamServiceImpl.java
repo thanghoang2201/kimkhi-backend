@@ -1,5 +1,6 @@
 package com.example.backend.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class HinhAnhSanPhamServiceImpl implements HinhAnhSanPhamService {
+
     private final HinhAnhSanPhamRepository hinhAnhRepository;
     private final SanPhamRepository sanPhamRepository;
 
@@ -39,6 +41,7 @@ public class HinhAnhSanPhamServiceImpl implements HinhAnhSanPhamService {
         HinhAnhSanPhamEntity entity = HinhAnhSanPhamEntity.builder()
                 .duongDanAnh(request.getDuongDanAnh())
                 .sanPham(sanPham)
+                .ngayTao(LocalDateTime.now())
                 .build();
 
         return mapToResponse(hinhAnhRepository.save(entity));
@@ -46,6 +49,7 @@ public class HinhAnhSanPhamServiceImpl implements HinhAnhSanPhamService {
 
     @Override
     public List<HinhAnhResponse> getAll() {
+
         return hinhAnhRepository.findAll()
                 .stream()
                 .map(this::mapToResponse)
@@ -86,10 +90,11 @@ public class HinhAnhSanPhamServiceImpl implements HinhAnhSanPhamService {
     }
 
     @Override
-     public void delete(Long id) {
-         if (!hinhAnhRepository.existsById(id)) {
-             throw new RuntimeException("Không tìm thấy hình ảnh");
-             } 
-             hinhAnhRepository.deleteById(id); 
-            } 
+    public void delete(Long id) {
+
+        HinhAnhSanPhamEntity entity = hinhAnhRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy hình ảnh"));
+
+        hinhAnhRepository.delete(entity);
+    }
 }

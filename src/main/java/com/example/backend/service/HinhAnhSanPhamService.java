@@ -6,6 +6,7 @@ import com.example.backend.dto.request.HinhAnhRequest;
 import com.example.backend.dto.response.HinhAnhResponse;
 
 public interface HinhAnhSanPhamService {
+
     HinhAnhResponse create(HinhAnhRequest request);
 
     List<HinhAnhResponse> getAll();
@@ -17,4 +18,5 @@ public interface HinhAnhSanPhamService {
     HinhAnhResponse update(Long id, HinhAnhRequest request);
 
     void delete(Long id);
+
 }

@@ -20,14 +20,10 @@ public class HinhAnhSanPhamEntity {
 
     private String duongDanAnh;
 
-    private LocalDateTime ngayTao;
+    @Builder.Default
+    private LocalDateTime ngayTao = LocalDateTime.now();
 
     @OneToOne
     @JoinColumn(name = "id_san_pham")
     private SanPhamEntity sanPham;
-
-    @PrePersist
-    public void prePersist() {
-        this.ngayTao = LocalDateTime.now();
-    }
 }
