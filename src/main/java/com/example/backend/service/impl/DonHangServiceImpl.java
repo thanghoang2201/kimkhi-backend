@@ -122,14 +122,23 @@ public class DonHangServiceImpl implements DonHangService {
     }
 
     @Override
-    public void delete(Long id) {
+public void deleteDonHang(Long id) {
 
-        if (!donHangRepository.existsById(id)) {
-            throw new RuntimeException("Không tìm thấy đơn hàng");
-        }
-
-        donHangRepository.deleteById(id);
+    if (id == null) {
+        throw new IllegalArgumentException("Không có id");
     }
+
+    DonHangEntity donHang = donHangRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng"));
+
+    if ("HUY".equals(donHang.getTrangThai())) {
+        throw new RuntimeException("Đơn hàng đã bị hủy");
+    }
+
+    donHang.setTrangThai("HUY");
+
+    donHangRepository.save(donHang);
+}
 
     @Override
     public DonHangResponse updateTrangThai(Long id, String trangThai) {

@@ -40,10 +40,12 @@ public class DonHangController {
     }
 
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        donHangService.delete(id);
-        return "Xóa đơn hàng thành công";
-    }
+public String deleteDonHang(@PathVariable Long id) {
+
+    donHangService.deleteDonHang(id);
+
+    return "Đã hủy đơn hàng thành công";
+}
 
     @PutMapping("/{id}/trang-thai")
 public DonHangResponse updateTrangThai(

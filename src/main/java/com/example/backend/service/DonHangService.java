@@ -15,7 +15,7 @@ public interface DonHangService {
 
     DonHangResponse update(Long id, DonHangRequest request);
 
-    void delete(Long id);
+    void deleteDonHang(Long id);
 
     DonHangResponse updateTrangThai(Long id, String trangThai);
 }
