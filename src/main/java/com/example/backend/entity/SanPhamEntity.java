@@ -15,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @AllArgsConstructor
 @Builder
 public class SanPhamEntity {
-     @Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -31,7 +32,7 @@ public class SanPhamEntity {
 
     private Boolean trangThai = true;
 
-    private LocalDateTime ngayTao = LocalDateTime.now();
+    private LocalDateTime ngayTao;
 
     @ManyToOne
     @JoinColumn(name = "id_danh_muc")
@@ -40,4 +41,16 @@ public class SanPhamEntity {
 
     @OneToOne(mappedBy = "sanPham", cascade = CascadeType.ALL)
     private HinhAnhSanPhamEntity hinhAnh;
+
+    // TỰ ĐỘNG SET NGÀY KHI INSERT
+    @PrePersist
+    public void prePersist() {
+        this.ngayTao = LocalDateTime.now();
+        if (this.trangThai == null) {
+            this.trangThai = true;
+        }
+        if (this.soLuongTon == null) {
+            this.soLuongTon = 0;
+        }
+    }
 }
