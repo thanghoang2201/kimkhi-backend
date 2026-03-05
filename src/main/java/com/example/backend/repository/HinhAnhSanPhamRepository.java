@@ -8,4 +8,5 @@ public interface HinhAnhSanPhamRepository extends JpaRepository<HinhAnhSanPhamEn
     Optional<HinhAnhSanPhamEntity> findBySanPhamId(Long sanPhamId);
 
     void deleteBySanPhamId(Long sanPhamId);
+    
 }

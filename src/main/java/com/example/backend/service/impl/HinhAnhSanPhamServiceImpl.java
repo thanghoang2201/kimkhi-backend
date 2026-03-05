@@ -86,15 +86,10 @@ public class HinhAnhSanPhamServiceImpl implements HinhAnhSanPhamService {
     }
 
     @Override
-public void delete(Long id) {
-
-    HinhAnhSanPhamEntity entity = hinhAnhRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Không tìm thấy hình ảnh"));
-
-    // gỡ liên kết với sản phẩm
-    entity.setSanPham(null);
-
-    // xóa hình ảnh
-    hinhAnhRepository.delete(entity);
-}
+     public void delete(Long id) {
+         if (!hinhAnhRepository.existsById(id)) {
+             throw new RuntimeException("Không tìm thấy hình ảnh");
+             } 
+             hinhAnhRepository.deleteById(id); 
+            } 
 }
