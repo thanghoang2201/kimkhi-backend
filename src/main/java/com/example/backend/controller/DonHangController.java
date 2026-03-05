@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,10 @@ public class DonHangController {
     }
 
     @PutMapping("/{id}/trang-thai")
-    public DonHangResponse updateTrangThai(@PathVariable Long id,
-                                           @RequestParam String trangThai) {
-        return donHangService.updateTrangThai(id, trangThai);
-    }
+public DonHangResponse updateTrangThai(
+        @PathVariable Long id,
+        @RequestBody Map<String, String> request) {
+
+    return donHangService.updateTrangThai(id, request.get("trangThai"));
+}
 }
