@@ -29,7 +29,7 @@ public class DonHangEntity {
     private BigDecimal tongTien;
 
     private String trangThai = "CHO_XU_LY";
-
+    @Builder.Default
     private LocalDateTime ngayTao = LocalDateTime.now();
 
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL)

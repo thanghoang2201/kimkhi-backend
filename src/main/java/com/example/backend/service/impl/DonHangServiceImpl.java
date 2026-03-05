@@ -31,10 +31,12 @@ public class DonHangServiceImpl implements DonHangService {
         List<ChiTietDonHangResponse> chiTiet = entity.getChiTietDonHangs()
                 .stream()
                 .map(ct -> ChiTietDonHangResponse.builder()
+                        .id(ct.getId())
                         .sanPhamId(ct.getSanPham().getId())
                         .tenSanPham(ct.getSanPham().getTenSanPham())
                         .soLuong(ct.getSoLuong())
                         .gia(ct.getGia())
+                        .thanhTien(ct.getGia().multiply(BigDecimal.valueOf(ct.getSoLuong())))
                         .build())
                 .collect(Collectors.toList());
 
