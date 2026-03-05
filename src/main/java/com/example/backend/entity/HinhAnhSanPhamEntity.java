@@ -13,15 +13,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class HinhAnhSanPhamEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String duongDanAnh;
 
-    private LocalDateTime ngayTao = LocalDateTime.now();
+    private LocalDateTime ngayTao;
 
     @OneToOne
     @JoinColumn(name = "id_san_pham")
     private SanPhamEntity sanPham;
+
+    @PrePersist
+    public void prePersist() {
+        this.ngayTao = LocalDateTime.now();
+    }
 }
