@@ -13,17 +13,20 @@ public class ImageUploadService {
     private final Cloudinary cloudinary;
 
     public String uploadImage(MultipartFile file) {
-        try {
+    try {
 
-            Map uploadResult = cloudinary.uploader().upload(
-                    file.getBytes(),
-                    ObjectUtils.emptyMap()
-            );
+        Map uploadResult = cloudinary.uploader().upload(
+                file.getBytes(),
+                ObjectUtils.emptyMap()
+        );
 
-            return uploadResult.get("secure_url").toString();
+        return uploadResult.get("secure_url").toString();
 
-        } catch (Exception e) {
-            throw new RuntimeException("Upload ảnh thất bại");
-        }
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+        throw new RuntimeException(e.getMessage());
     }
+}
 }
