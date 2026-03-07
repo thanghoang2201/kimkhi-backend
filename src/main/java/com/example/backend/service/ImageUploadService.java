@@ -10,23 +10,22 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class ImageUploadService {
-    private final Cloudinary cloudinary;
+   private final Cloudinary cloudinary;
 
     public String uploadImage(MultipartFile file) {
-    try {
 
-        Map uploadResult = cloudinary.uploader().upload(
-                file.getBytes(),
-                ObjectUtils.emptyMap()
-        );
+        try {
 
-        return uploadResult.get("secure_url").toString();
+            Map uploadResult = cloudinary.uploader().upload(
+                    file.getInputStream(),
+                    ObjectUtils.emptyMap()
+            );
 
-    } catch (Exception e) {
+            return uploadResult.get("secure_url").toString();
 
-        e.printStackTrace();
+        } catch (Exception e) {
 
-        throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Upload image failed: " + e.getMessage());
+        }
     }
-}
 }
