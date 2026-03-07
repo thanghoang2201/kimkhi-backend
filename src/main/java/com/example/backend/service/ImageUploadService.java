@@ -10,20 +10,23 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class ImageUploadService {
-   private final Cloudinary cloudinary;
+
+    private final Cloudinary cloudinary;
 
     public String uploadImage(MultipartFile file) {
 
         try {
 
             Map uploadResult = cloudinary.uploader().upload(
-                    file.getInputStream(),
+                    file.getBytes(),   // sửa dòng này
                     ObjectUtils.emptyMap()
             );
 
             return uploadResult.get("secure_url").toString();
 
         } catch (Exception e) {
+
+            e.printStackTrace();
 
             throw new RuntimeException("Upload image failed: " + e.getMessage());
         }
