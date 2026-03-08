@@ -135,17 +135,22 @@ public class SanPhamImpl implements SanPhamService {
     // ================= CONVERT =================
     private SanPhamResponse convertToResponse(SanPhamEntity entity) {
 
-        return SanPhamResponse.builder()
-                .id(entity.getId())
-                .tenSanPham(entity.getTenSanPham())
-                .gia(entity.getGia())
-                .donViTinh(entity.getDonViTinh())
-                .moTa(entity.getMoTa())
-                .soLuongTon(entity.getSoLuongTon())
-                .trangThai(entity.getTrangThai())
-                .ngayTao(entity.getNgayTao())
-                .danhMucId(entity.getDanhMuc().getId())
-                .tenDanhMuc(entity.getDanhMuc().getTenDanhMuc())
-                .build();
-    }
+    return SanPhamResponse.builder()
+            .id(entity.getId())
+            .tenSanPham(entity.getTenSanPham())
+            .gia(entity.getGia())
+            .donViTinh(entity.getDonViTinh())
+            .moTa(entity.getMoTa())
+            .soLuongTon(entity.getSoLuongTon())
+            .trangThai(entity.getTrangThai())
+            .ngayTao(entity.getNgayTao())
+            .danhMucId(entity.getDanhMuc().getId())
+            .tenDanhMuc(entity.getDanhMuc().getTenDanhMuc())
+            .duongDanAnh(
+                    entity.getHinhAnh() != null
+                            ? entity.getHinhAnh().getDuongDanAnh()
+                            : null
+            )
+            .build();
+}
 }
